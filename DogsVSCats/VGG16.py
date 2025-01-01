@@ -36,8 +36,15 @@ def main():
     print(example_classes)
     print(index_classes)
 
+    # 指定本地权重文件路径
+    pretrained_weights_path = r'D:\Pycharm Project\machine_learning\DogsVSCats\vgg16-397923af.pth'  # 替换为你本地的路径
+
     # 预训练模型（例如 ResNet、VGG 等）通常是在大型数据集（如 ImageNet）上训练的，它们已经学会了丰富的特征表示
-    model = models.vgg16(pretrained=True)  # 加载预训练的 VGG16 模型
+    model = models.vgg16(pretrained=False)  # 加载预训练的 VGG16 模型
+
+    # 加载本地权重到模型
+    state_dict = torch.load(pretrained_weights_path)  # 加载本地权重文件
+    model.load_state_dict(state_dict)  # 将权重应用到模型
 
     # 冻结预训练模型参数
     for parma in model.parameters():  # 返回模型中所有的参数（权重和偏置）
