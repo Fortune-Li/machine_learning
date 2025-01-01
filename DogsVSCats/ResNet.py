@@ -11,14 +11,14 @@ data_dir = '../DogsVSCats'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # 数据预处理：调整图片大小为 224x224，归一化到 [0,1]，然后标准化到 [-1,1]
-data_transfroms = {x: transforms.Compose([transforms.Resize((224, 224)),
+data_transforms = {x: transforms.Compose([transforms.Resize((224, 224)),
                                           transforms.ToTensor(),
                                           transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])
                    for x in ['train', 'valid']}
 
 # 创建训练集和验证集的数据集对象
 image_datasets = {x: datasets.ImageFolder(root=os.path.join(data_dir, x),  # 数据集路径
-                                          transform=data_transfroms[x])  # 应用预处理方法
+                                          transform=data_transforms[x])  # 应用预处理方法
                   for x in ['train', 'valid']}
 
 # 创建训练集和验证集的 DataLoader，便于批量读取数据
